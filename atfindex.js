@@ -12,7 +12,7 @@
     PLUGIN configuration options
 */
 var VERBOSITY='OUTPUT';      //DEBUG, WARNING, OUTPUT (default)
-var savePageProfile=0;       //0:Nothing, 1:Save statistics, 2:Stats + Page profile, 3:Stats + Page profile + Timing, 4:Full log
+var savePageProfile=4;       //0:Nothing, 1:Save statistics, 2:Stats + Page profile, 3:Stats + Page profile + Timing, 4:Full log
 var sendToServer=true;       //Default = true
 var serverAddress='http://0.0.0.0:65535';        //Default = ''
 var delay_to_calculate=1000; //In milliseconds
@@ -40,7 +40,7 @@ function log(str, out="OUTPUT"){
 function restore_options() {
     chrome.storage.sync.get({
         verbosity: 'OUTPUT',
-        save_file: false,
+        save_file: 4,
         send_to_server: true,
         server_address: 'http://0.0.0.0:65535',
         adblock: true,
