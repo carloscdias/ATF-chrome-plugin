@@ -21,6 +21,9 @@ var mac='00:00:00:00:00:00'; //Default = '00:00:00:00:00:00'
 var version = 1.40;
 var stats = {}
 var executed = false;
+var adblock = true;
+var puppeteer = true;
+var resolution_type = 1;
 
 function log(str, out="OUTPUT"){
     if (out=="DEBUG" && VERBOSITY=="DEBUG"){
@@ -40,6 +43,9 @@ function restore_options() {
         save_file: false,
         send_to_server: true,
         server_address: 'http://0.0.0.0:65535',
+        adblock: true,
+        puppeteer: true,
+        resolution_type: 1,
         delay: 4000,
         hard_deadline: 10000,
         mac: '00:00:00:00:00:00'
@@ -51,10 +57,14 @@ function restore_options() {
         delay_to_calculate = items.delay;
         hard_deadline      = items.hard_deadline;
         mac                = items.mac;
+        adblock            = items.adblock;
+        puppeteer          = items.puppeteer;
+        resolution_type    = items.resolution_type;
         log("Options -> Verbosity: " + VERBOSITY + ', save: ' + savePageProfile +
             (sendToServer) ? ', server address: ' + serverAddress : + '' + 
             ', delay: ' + delay_to_calculate + ', deadline: '+hard_deadline +
-            ', device MAC: ' + mac, "DEBUG")
+            ', device MAC: ' + mac + ', puppeteer: ' + puppeteer + ', adblock: ' +
+            adblock + ', resolution_type: ' + resolution_type, "DEBUG")
         
         //Schedule execution: HARD_DEADLINE option
         setTimeout(function(){ 
@@ -312,10 +322,10 @@ function calculateATF(){
     stats.num_atf_img = screenimgs.length;
     stats.distinct_imgs = Object.keys(hashImgs).length;
     stats.img_pixels = img_pixels;
-    stats.adblock = true;
-    stats.resolution_type = 2;
-    stats.puppeteer = true;
-    stats.runtime      = performance.now() - script_start_time;
+    stats.adblock = adblock;
+    stats.resolution_type = resolution_type;
+    stats.puppeteer = puppeteer;
+    stats.runtime = performance.now() - script_start_time;
 
     var suffix = 'webdriver';
     if (stats.puppeteer) {
